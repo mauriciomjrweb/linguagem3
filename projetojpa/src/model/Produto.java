@@ -1,10 +1,14 @@
 package model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "produto")
@@ -14,9 +18,22 @@ public class Produto {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
+	@Column(length = 10, unique = true)
+	private String referencia;
+	
+	@Column(name = "pro_descricao", nullable = false )
 	private String descricao;
+	
+	@Column(precision = 6, scale = 2)
 	private double preco;
+	
+	@Enumerated(EnumType.STRING)
+	private Tipo tipo;
+	
 	private int quantidade;
+	
+	@Transient
+	private boolean disponivel;
 
 	 public Produto() { }
 
@@ -37,5 +54,29 @@ public class Produto {
 
 	 public int getQuantidade() { return quantidade; }
 	 public void setQuantidade(int quantidade) { this.quantidade = quantidade; }
+
+	public boolean isDisponivel() {
+		return disponivel;
+	}
+
+	public void setDisponivel(boolean disponivel) {
+		this.disponivel = disponivel;
+	}
+
+	public String getReferencia() {
+		return referencia;
+	}
+
+	public void setReferencia(String referencia) {
+		this.referencia = referencia;
+	}
+
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
+	}
 
 } 

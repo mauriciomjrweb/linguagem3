@@ -2,8 +2,8 @@ package app;
 
 import javax.persistence.EntityManager;
 
+import conf.JPAUtil;
 import model.Produto;
-import projetojpa.JPAUtil;
 
 public class Main {
 

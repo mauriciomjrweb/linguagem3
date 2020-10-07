@@ -1,4 +1,4 @@
-package projetojpa;
+package conf;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
