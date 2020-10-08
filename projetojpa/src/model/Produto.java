@@ -79,4 +79,12 @@ public class Produto {
 		this.tipo = tipo;
 	}
 
+	@Override
+	public String toString() {
+		return "Produto [id=" + id + ", referencia=" + referencia + ", descricao=" + descricao + ", preco=" + preco
+				+ ", tipo=" + tipo + ", quantidade=" + quantidade + ", disponivel=" + disponivel + "]";
+	}
+	
+	
+
 } 
