@@ -20,6 +20,11 @@ public class ProdutoDao implements Dao<Produto> {
 	}
 
 	@Override
+	public Produto get(int id) {
+		return em.find(Produto.class, id);
+	}
+
+	@Override
 	public List<Produto> getAll() {
 		Query query = em.createQuery("SELECT p FROM Produto p");
 		return query.getResultList();
@@ -51,11 +56,6 @@ public class ProdutoDao implements Dao<Produto> {
 			tx.rollback();
 			throw e;
 		}
-	}
-
-	@Override
-	public Object get(int id) {
-		return em.find(Produto.class, id);
 	}
 
 }
