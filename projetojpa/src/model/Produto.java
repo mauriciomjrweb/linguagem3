@@ -15,45 +15,70 @@ import javax.persistence.Transient;
 public class Produto {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column(length = 10, unique = true)
 	private String referencia;
-	
-	@Column(name = "pro_descricao", nullable = false )
+
+	@Column(name = "pro_descricao", nullable = false)
 	private String descricao;
-	
+
 	@Column(precision = 6, scale = 2)
 	private double preco;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Tipo tipo;
-	
+
 	private int quantidade;
-	
+
 	@Transient
 	private boolean disponivel;
 
-	 public Produto() { }
+	public Produto() {
+	}
 
-	 public Produto(String descricao, double preco, int quantidade) {
-			this.descricao = descricao;
-			this.preco = preco;
-			this.quantidade = quantidade;
-		}
+	public Produto(String referencia, String descricao, double preco, Tipo tipo, int quantidade, boolean disponivel) {
+		super();
+		this.referencia = referencia;
+		this.descricao = descricao;
+		this.preco = preco;
+		this.tipo = tipo;
+		this.quantidade = quantidade;
+		this.disponivel = disponivel;
+	}
 
-	 public int getId() { return id; }
-	 public void setId(int id) { this.id = id; }
+	public int getId() {
+		return id;
+	}
 
-	 public String getDescricao() { return descricao; }
-	 public void setDescricao(String descricao) { this.descricao = descricao; }
-	 
-	 public double getPreco() { return preco; }
-	 public void setPreco(double preco) { this.preco = preco; }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-	 public int getQuantidade() { return quantidade; }
-	 public void setQuantidade(int quantidade) { this.quantidade = quantidade; }
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(double preco) {
+		this.preco = preco;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
 
 	public boolean isDisponivel() {
 		return disponivel;
@@ -84,7 +109,5 @@ public class Produto {
 		return "Produto [id=" + id + ", referencia=" + referencia + ", descricao=" + descricao + ", preco=" + preco
 				+ ", tipo=" + tipo + ", quantidade=" + quantidade + ", disponivel=" + disponivel + "]";
 	}
-	
-	
 
-} 
+}
