@@ -1,6 +1,5 @@
 package dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -9,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+import conf.JPAUtil;
 import model.Produto;
 
 public class ProdutoDao implements Dao<Produto> {
@@ -16,30 +16,13 @@ public class ProdutoDao implements Dao<Produto> {
 	private EntityManager em;
 
 	public ProdutoDao() {
-
-	}
-
-	@Override
-	public Optional<Produto> get(long id) {
-		return Optional.ofNullable(em.find(Produto.class, id));
+		em = JPAUtil.getEntityManagerFactory().createEntityManager();
 	}
 
 	@Override
 	public List<Produto> getAll() {
 		Query query = em.createQuery("SELECT p FROM Produto p");
 		return query.getResultList();
-	}
-
-	private void executeInsideTransaction(Consumer<EntityManager> action) {
-		EntityTransaction tx = em.getTransaction();
-		try {
-			tx.begin();
-			action.accept(em);
-			tx.commit();
-		} catch (RuntimeException e) {
-			tx.rollback();
-			throw e;
-		}
 	}
 
 	@Override
@@ -58,6 +41,25 @@ public class ProdutoDao implements Dao<Produto> {
 		executeInsideTransaction(entityManager -> entityManager.remove(p));
 	}
 
+	private void executeInsideTransaction(Consumer<EntityManager> action) {
+		EntityTransaction tx = em.getTransaction();
+		try {
+			tx.begin();
+			action.accept(em);
+			tx.commit();
+		} catch (RuntimeException e) {
+			tx.rollback();
+			throw e;
+		}
+	}
+
+	@Override
+	public Object get(int id) {
+		return em.find(Produto.class, id);
+	}
+
 }
 
-//https://www.baeldung.com/java-dao-pattern
+/*
+ * Reference: https://www.baeldung.com/java-dao-pattern
+ */
